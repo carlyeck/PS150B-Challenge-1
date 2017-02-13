@@ -1,0 +1,90 @@
+##
+##
+## Testing Model Accuracy
+##
+##
+
+################################
+#
+# Creates functions for testing
+#
+################################
+
+#
+# Classifies values into Fake/real
+#
+
+classify <- function(prediction, t) {
+  classification <- ifelse(prediction > t, 1, 0)
+  return(classification)
+}
+
+#
+# Creates vector of the number of true yay., true.nay, false.yay, and false.nays
+# given observed/predicted values and a threshold
+#
+
+pred.vs.obs <- function(observed, predicted, t) {
+  classified <- classify(predicted, t)
+  true.yay    <- sum(observed==1 & classified==1)
+  true.nay    <- sum(observed==0 & classified==0)
+  false.yay   <- sum(observed==0 & classified==1)
+  false.nay   <- sum(observed==1 & classified==0)
+  ty.tn.fy.fn <- c(true.yay, true.nay, false.yay, false.nay)
+  return(ty.tn.fy.fn)
+}
+
+#
+# Calculates accuracy of a model given the true false, true nay... classifications
+#
+
+accuracy <- function(values) {
+  acc <- (values[1] + values[2]) / sum(values)
+  return(acc)
+}
+
+################################
+#
+# Test model accuracy given fixed
+# classification threshold
+# 
+################################
+
+num.models <- 4  #number of models
+t <- .5
+diff.accuracies.varying.models <- vector(length = num.models)  #vector holding accuracies
+fitted.values <- list() # list to store vectors of predicted values
+
+# Store models' fitted values into a list
+fitted.values[[1]] <- model.1$fitted.values
+fitted.values[[2]] <- model.2$fitted.values
+fitted.values[[3]] <- model.3$fitted.values
+fitted.values[[4]] <- model.4$fitted.values
+
+for (i in 1:num.models) {
+  this.ty.tn.fy.fn <- pred.vs.obs(observed, fitted.values[[i]] , t)
+  diff.accuracies.varying.models[i] <- accuracy(this.ty.tn.fy.fn)
+}
+
+which.max(diff.accuracies.varying.models
+
+################################
+#
+# Tests classification threshold given
+# fixed model
+#
+################################
+
+all.thresholds <- seq(0, 1, .01)  #all potential thresholds from 1 to 100
+
+diff.accuracies <- vector(length = length(all.thresholds)) #vector for storing all resulting accuracies
+
+observed <-
+predicted <-
+
+for (i in all.thresholds) {
+  this.ty.tn.fy.fn <- pred.vs.obs(observed, predicted, i) 
+  diff.accuracies[i] <- accuracy(this.ty.tn.fy.fn)
+}
+
+which.max(diff.accuracies)
