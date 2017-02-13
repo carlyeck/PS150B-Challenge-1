@@ -1,0 +1,40 @@
+## Final Fake() function not in a readme.md file
+
+Fake <- function(doc-term matrix) {
+
+  1. Perform all necessary manipulations to the data, install packages, etc.
+    docterm <- doc-term matrix    # puts the data into a matrix (possibly may want this to be a data frame?)
+    
+  2. Apply your model # Multivariate regression of predictions from multiple regression models
+    
+    # Calculates all the variables (fill in below):
+    word.count <- apply(docterm, 1, sum)
+    average.word.length <- # insert code here
+    sentiment.score <- # insert code here 
+    pro.trump <- # insert code here
+    
+    # Calculates predict values for each model
+    word.count.values <- predict(word.count)
+    average.word.length.values <- predict(average.word.length)
+    sentiment.score.values <- predict(sentiment.score)
+    pro.trump.values <- predict(pro.trump)
+    
+    predictions.matrix <- cbind(word.count.values, average.word.length.values, sentiment.score.values, pro.trump.values)
+    
+  3. Predict and classify using the parameters of this model
+    # Final Multivariate Regression:
+    final.reg <- lm(Fake ~., data = predictions.matrix)
+    final.predictions <- predict(final.reg)
+    
+  4. Return label of classified rows
+  
+    fake.news <- ifelse(final.predictions > some.value, 1, 0)
+    docterm <- cbind(docterm, fake.news)
+    accuracy <- (sum(ifelse(docterm$fake.news == docterm$Fake, 1, 0)/length(fake.news))
+    
+    return(fake.news, accuracy)
+ }
+  
+  
+  
+  
